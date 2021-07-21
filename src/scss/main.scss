@@ -1,0 +1,16 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    h2 {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    a {
+        background-color: black;
+        color: white;
+        padding: 5px;
+    }
+}
