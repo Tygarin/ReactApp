@@ -3,9 +3,7 @@ import React from 'react';
 class Slider extends React.Component {
     render() {
         return (
-            <div>
-                Slider
-            </div>
+            <div className='slider'>Slider</div>
         )
     }
 }

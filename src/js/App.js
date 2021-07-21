@@ -1,4 +1,4 @@
-import '../scss/App.scss'
+import '../scss/index.scss'
 import React from 'react'
 import Main from './pages/main'
 import Slider from './pages/slider'
