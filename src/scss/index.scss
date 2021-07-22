@@ -31,3 +31,39 @@
 .App {
   text-align: center;
 }
+.page {
+  height: 100vh;
+  background-color: #e5e5e5;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  .button {
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+  }
+  .sliderWrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    .slider {
+      background-color: #000;
+      width: 600px;
+      height: 400px;
+      object-fit: contain;
+      margin: 10px;
+    }
+  }
+  a{
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+  }
+}

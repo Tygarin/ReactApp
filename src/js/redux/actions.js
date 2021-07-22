@@ -1,19 +1,19 @@
-import { INCREMENT } from "./actionTypes";
-import { DECREMENT } from "./actionTypes";
+import { NEXT_IMG } from "./actionTypes";
+import { PREV_IMG } from "./actionTypes";
 
-const increment = () => {
+const prev_img = () => {
     return {
-        type: INCREMENT,
+        type: PREV_IMG,
     }
 }
 
-const decrement = () => {
+const next_img = () => {
     return {
-        type: DECREMENT,
+        type: NEXT_IMG,
     }
 }
 
 export const actions = {
-    increment,
-    decrement
+    prev_img,
+    next_img
 }

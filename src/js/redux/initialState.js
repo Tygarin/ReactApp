@@ -1,3 +1,12 @@
+import dog1 from '../../img/dog1.jpg';
+import dog2 from '../../img/dog2.jpg';
+import dog3 from '../../img/dog3.jpg';
+
 export const initialState = {
-    count: 0
+    local: [
+        dog1, 
+        dog2, 
+        dog3
+    ],
+    imgId: 0
 }
