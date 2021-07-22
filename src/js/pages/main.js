@@ -2,16 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../../scss/index.scss'
 import { connect } from 'react-redux';
+import { actions } from '../redux/actions';
+import { bindActionCreators } from 'redux';
 
 class Main extends React.Component {
-    increment = () => {
-        this.props.dispatch({ type: 'INCREMENT' });
-    }
-  
-    decrement = () => {
-        this.props.dispatch({ type: 'DECREMENT' });
-    }
-
     render() {
         return (
             <div className='main'>
@@ -19,9 +13,9 @@ class Main extends React.Component {
                     <div className='text' >Hello</div>
                     <Link to='/slider'>Слайдер</Link>
                     <div className='counter'>
-                      <button onClick={this.decrement}>-</button>
+                      <button onClick={this.props.decrement}>-</button>
                       <span>{this.props.count}</span>
-                      <button onClick={this.increment}>+</button>
+                      <button onClick={this.props.increment}>+</button>
                     </div>
                 </div>
             </div>
@@ -29,10 +23,14 @@ class Main extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
       count: state.count
     };
 } 
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
+
+console.log(mapDispatchToProps)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
