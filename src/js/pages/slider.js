@@ -6,19 +6,34 @@ import { actions } from '../redux/actions';
 import { bindActionCreators } from 'redux';
 
 class Slider extends React.Component {
-    async imgFunc() {
+    constructor(props) {
+        super(props)
+        this.onChangeSlider = this.onChangeSlider.bind(this)
+    }
+    async componentDidMount() {
         let response = await fetch('https://imagesapi.osora.ru/');
-        console.log(response.json());
+        let Respjson = await response.json()
+        console.log(Respjson);
+        this.props.takeImgSuccess(Respjson)
+        console.log(this.props.remote);
+    }
+    onChangeSlider() {
+        if(this.props.source === 'local') {
+            this.props.changeSlider('remote')
+        } else {
+            this.props.changeSlider('local')
+        }
+        console.log(this.props.source);
     }
     render() {
         return (
             <div className='page'>
                 <div className='sliderWrapper'>
                     <div className='button' onClick={this.props.prev_img}>prev</div>
-                    <img className="slider" src={this.props.local[this.props.imgId]} alt=""/>
+                    {this.props.source === 'local' ? <img className="slider" src={this.props.local[this.props.imgId]} alt=""/> : <img className="slider" src={this.props.remote[this.props.imgId]} alt=""/>}
                     <div className='button' onClick={this.props.next_img}>next</div>
                 </div>
-                <div className="button button_switch" onClick={this.imgFunc}>switch to remote</div>
+                <div className="button button_switch" onClick={this.onChangeSlider}>switch to remote</div>
                 <Link to='/main'>back to main</Link>
             </div>
         )
@@ -27,9 +42,8 @@ class Slider extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        imgId: state.imgId,
-        local: state.local
-    };
+        ...state
+    }
 } 
 
 const mapDispatchToProps = (dispatch) => {
