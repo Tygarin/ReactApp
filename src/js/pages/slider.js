@@ -9,7 +9,8 @@ class Slider extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            source : 'remote'
+            source : 'remote',
+            imgId  : 0 
         }
     }
     async componentDidMount() {
@@ -17,24 +18,24 @@ class Slider extends React.Component {
         let Respjson = await response.json()
         console.log(Respjson);
         this.props.takeImgSuccess(Respjson)
-        console.log(this.props.remote);
     }
     nextImg = () => {
-        let count = this.props.imgId
-        this.props.setLength(count+=1)
+        let count = this.state.imgId
+        count+=1
+        console.log(count);
+        this.setState({imgId : count}) 
 
-        if(this.props.imgId > 1) {
-            this.props.setLength(0)
-            console.log('s');
+        if(this.state.imgId > 1) {
+            this.setState({imgId : 0}) 
         }
     }
     prevImg = () => {
-        let count = this.props.imgId
-        this.props.setLength(count-=1)
+        let count = this.state.imgId
+        count -= 1
+        this.setState({imgId : count}) 
 
-        if(this.props.imgId < 1) {
-            console.log('d');
-            this.props.setLength(2)
+        if(this.state.imgId < 1) {
+            this.setState({imgId : 2}) 
         }
     }
     onChangeSlider = () => {
@@ -43,19 +44,18 @@ class Slider extends React.Component {
         } else {
             this.setState({source:'local'})
         }
-        console.log(this.state.source);
     }
     render() {
         return (
             <div className='page'>
                 <div className='sliderWrapper'>
-                    <div className='button' onClick={this.props.prev_img && this.prevImg}>prev</div>
+                    <div className='button' onClick={this.prevImg}>prev</div>
                     {
                     this.state.source === 'remote' ? 
-                    <img className="slider" src={this.props.local[this.props.imgId]} alt=""/> : 
-                    <img className="slider" src={this.props.remote[this.props.imgId]} alt=""/>
+                    <img className="slider" src={this.props.local[this.state.imgId]} alt=""/> : 
+                    <img className="slider" src={this.props.remote[this.state.imgId]} alt=""/>
                     }
-                    <div className='button' onClick={this.props.next_img && this.nextImg}>next</div>
+                    <div className='button' onClick={this.nextImg}>next</div>
                 </div>
                 <div className="button button_switch" onClick={this.onChangeSlider}>switch to {this.state.source}</div>
                 <Link to='/main'>back to main</Link>

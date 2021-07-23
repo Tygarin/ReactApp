@@ -1,20 +1,6 @@
-import { NEXT_IMG } from "./actionTypes";
-import { PREV_IMG } from "./actionTypes";
 import { TAKEIMG_SUCCESS } from "./actionTypes";
 import { CHANGE_SLIDER } from "./actionTypes";
 import { SET_LENGTH } from "./actionTypes";
-
-const prev_img = () => {
-    return {
-        type: PREV_IMG,
-    }
-}
-
-const next_img = () => {
-    return {
-        type: NEXT_IMG,
-    }
-}
 
 const takeImgSuccess = (json) => {
     return {
@@ -38,8 +24,6 @@ const changeSlider = (source) => {
 }
 
 export const actions = {
-    prev_img,
-    next_img,
     takeImgSuccess,
     changeSlider,
     setLength
