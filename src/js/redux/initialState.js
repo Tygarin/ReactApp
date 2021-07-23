@@ -9,6 +9,5 @@ export const initialState = {
         dog3
     ],
     remote: [],
-    imgId: 0,
-    source: 'remote'
+    imgId: 0
 }
