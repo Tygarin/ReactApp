@@ -31,7 +31,7 @@ class Slider extends React.Component {
                 <div className='sliderWrapper'>
                     <div className='button' onClick={this.props.prev_img}>prev</div>
                     {
-                    this.props.source === 'local' ? 
+                    this.props.source === 'remote' ? 
                     <img className="slider" src={this.props.local[this.props.imgId]} alt=""/> : 
                     <img className="slider" src={this.props.remote[this.props.imgId]} alt=""/>
                     }

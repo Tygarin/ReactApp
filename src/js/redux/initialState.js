@@ -10,5 +10,5 @@ export const initialState = {
     ],
     remote: [],
     imgId: 0,
-    source: 'local'
+    source: 'remote'
 }
