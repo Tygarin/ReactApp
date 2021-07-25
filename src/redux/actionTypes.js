@@ -1,0 +1,3 @@
+export const TAKEIMG_SUCCESS = 'TAKEIMG_SUCCESS'
+export const CHANGE_SLIDER = 'CHANGE_SLIDER'
+export const SET_LENGTH = 'SET_LENGTH'
