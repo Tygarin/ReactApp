@@ -99,7 +99,7 @@ class Player extends React.Component {
     }
 
     render() {
-        return (
+        return ( 
             <View style={styles.player}>
                 <Text style={styles.authors}>{this.state.authors}</Text>
                 <View style={styles.playerNav}>
