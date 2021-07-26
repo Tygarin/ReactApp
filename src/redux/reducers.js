@@ -18,6 +18,11 @@ export const reducer = (state = initialState, action = actions) => {
                 ...state,
                 imgId: action.payload
             }
+        case 'TAKE_AUDIO_SUCCESSS':
+            return {
+                ...state,
+                audioRemote: action.payload
+            }
         default:
             return state;
     }

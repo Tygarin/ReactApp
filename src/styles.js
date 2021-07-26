@@ -57,6 +57,24 @@ const styles = StyleSheet.create({
     switchbtn: {
         padding: 5,
         marginBottom: 20
+    },
+    player: {
+        flex: 1,
+        alignItems: 'center',
+        marginTop: 200
+    },
+    playerNav: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20,
+        height: 200
+    },
+    playerImg: {
+        width: 50,
+        height: 50
+    },
+    authors: {
+        fontSize: 20
     }
 })  
 
