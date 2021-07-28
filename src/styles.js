@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     switchbtn: {
         padding: 5,
-        marginBottom: 20
+        marginTop: 50
     },
     player: {
         flex: 1,
