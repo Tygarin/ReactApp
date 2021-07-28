@@ -2,19 +2,14 @@ import React from 'react';
 import { AppState, Button, Image, Text, TouchableOpacity, View } from 'react-native';
 import styles from '../styles';
 import TrackPlayer, { TrackPlayerEvents } from 'react-native-track-player';
-import { connect } from 'react-redux';
-import { actions } from '../redux/actions';
-import { bindActionCreators } from 'redux';
 import songs from '../data'
-import { EventRegister } from 'react-native-event-listeners';
 
 class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      audioId: 1,
       pause: false,
-      authors: '',
+      author: '',
       appState: AppState.currentState
     }
   }
@@ -22,9 +17,7 @@ class Player extends React.Component {
   async componentDidMount() {
     let response = await fetch('https://imagesapi.osora.ru/?isAudio=true');
     let Respjson = await response.json()
-    await this.props.takeAudioSuccess(Respjson)
-    console.log(this.props.audioRemote);
-    this.start()
+
     TrackPlayer.updateOptions({
       stopWithApp: true,
       alwaysPauseOnInterruption: true,
@@ -39,47 +32,52 @@ class Player extends React.Component {
     TrackPlayer.registerPlaybackService(() => require('../service'));
     AppState.addEventListener("change", this._handleAppStateChange);
 
-    songs.push(
-      {
-        url: urls[3],
-        title: allAuthors[3]
-      },
-      {
-        url: urls[4],
-        title: allAuthors[4]
-      },
-      {
-        url: urls[5],
-        title: allAuthors[5]
-      }
-    );
-  }
-
-  componentWillUnmount() {
-    TrackPlayer.destroy();
-    AppState.removeEventListener("change", this._handleAppStateChange);
-  }
-
-  start = async () => {
-    console.log(this.state);
     let urls = []
-    Object.values(this.props.audioLocal).map((e) => urls.push(e))
-    this.props.audioRemote.map((e) => urls.push(e))
+    Respjson.map((e) => urls.push(e))
 
     let allAuthors = []
-    Object.keys(this.props.audioLocal).map((e) => allAuthors.push(e))
-    let remoteAuthors = ['Моргешер', 'Slawa Marlow', 'Тима белорусских']
+    let remoteAuthors = ['Моргешер', 'Slava Marlow', 'Тима белорусских']
     remoteAuthors.map((e) => allAuthors.push(e))
 
     await TrackPlayer.setupPlayer();
-    
+
+    if (songs.length <= 3) {
+      songs.push(
+        {
+          id: 3,
+          url: urls[0],
+          title: allAuthors[0]
+        },
+        {
+          id: 4,
+          url: urls[1],
+          title: allAuthors[1]
+        },
+        {
+          id: 5,
+          url: urls[2],
+          title: allAuthors[2]
+        }
+      );
+      console.log(songs);
+    }
+
     await TrackPlayer.add(songs)
 
-    await TrackPlayer.play();
-    this.setState({
-      authors: allAuthors[this.state.audioId]
-    })
+    this.refresh()
+    this.start()
+    setInterval(() => {
+      this.refresh()
+    }, 1000)
+  }
 
+  componentWillUnmount() {
+    AppState.removeEventListener("change", this._handleAppStateChange);
+    TrackPlayer.pause()
+  }
+
+  start = async () => {
+    await TrackPlayer.play();
   };
 
   onPause = async () => {
@@ -92,30 +90,22 @@ class Player extends React.Component {
     }
   }
 
-  onNext = () => {
-    let id = this.state.audioId
+  refresh = async () => {
+    let trackIndex = await TrackPlayer.getCurrentTrack();
+    let trackObject = await TrackPlayer.getTrack(trackIndex);
     this.setState({
-      audioId: id + 1
+      author: trackObject.title
     })
-
-    if (id > 4) {
-      this.setState({ audioId: 0 })
-    }
-    this.setState({ pause: false })
-    this.start()
   }
 
-  onPrev = () => {
-    let id = this.state.audioId
-    this.setState({
-      audioId: id - 1
-    })
+  onNext = async () => {
+    TrackPlayer.skipToNext()
+    this.refresh()
+  }
 
-    if (id < 1) {
-      this.setState({ audioId: 5 })
-    }
-    this.setState({ pause: false })
-    this.start()
+  onPrev = async () => {
+    TrackPlayer.skipToPrevious()
+    this.refresh()
   }
 
   _handleAppStateChange = nextAppState => {
@@ -133,7 +123,7 @@ class Player extends React.Component {
   render() {
     return (
       <View style={styles.player}>
-        <Text style={styles.authors}>{this.state.authors}</Text>
+        <Text style={styles.authors}>{this.state.author}</Text>
         <View style={styles.playerNav}>
           <TouchableOpacity onPress={this.onPrev}>
             <Image style={styles.playerImg} source={require('../img/prev.png')}></Image>
@@ -155,14 +145,4 @@ class Player extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ...state
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(actions, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Player);
+export default (Player);

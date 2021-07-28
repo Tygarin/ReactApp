@@ -1,18 +1,10 @@
 import { TAKEIMG_SUCCESS } from "./actionTypes";
-import { TAKE_AUDIO_SUCCESSS } from "./actionTypes";
 import { CHANGE_SLIDER } from "./actionTypes";
 import { SET_LENGTH } from "./actionTypes";
 
 const takeImgSuccess = (json) => {
     return {
         type: TAKEIMG_SUCCESS,
-        payload: json
-    }
-}
-
-const takeAudioSuccess = (json) => {
-    return {
-        type: TAKE_AUDIO_SUCCESSS,
         payload: json
     }
 }
@@ -34,6 +26,5 @@ const changeSlider = (source) => {
 export const actions = {
     takeImgSuccess,
     changeSlider,
-    setLength,
-    takeAudioSuccess
+    setLength
 }
