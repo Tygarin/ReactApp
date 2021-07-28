@@ -70,11 +70,12 @@ const styles = StyleSheet.create({
         height: 200
     },
     playerImg: {
-        width: 50,
-        height: 50
+        width: 70,
+        height: 70
     },
     authors: {
-        fontSize: 20
+        fontSize: 30,
+        marginBottom: 340
     }
 })  
 

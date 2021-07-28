@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
+import { AppState, Button, Image, Text, TouchableOpacity, View} from 'react-native';
 import styles from '../styles';
-import TrackPlayer, { Capability } from 'react-native-track-player';
+import TrackPlayer, {TrackPlayerEvents} from 'react-native-track-player';
 import { connect } from 'react-redux';
 import { actions } from '../redux/actions';
 import { bindActionCreators } from 'redux';
@@ -22,6 +22,30 @@ class Player extends React.Component {
         await this.props.takeAudioSuccess(Respjson)
         console.log(this.props.audioRemote);
         this.start()
+        TrackPlayer.updateOptions({
+            stopWithApp: true,
+            alwaysPauseOnInterruption: true,
+            capabilities: [
+                TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+                TrackPlayer.CAPABILITY_PLAY,
+                TrackPlayer.CAPABILITY_PAUSE,
+                TrackPlayer.CAPABILITY_STOP,
+                TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+              ]
+        });
+        this.capabilitys()
+    }
+
+    componentWillUnmount() {
+        TrackPlayer.stop();
+    }
+
+    capabilitys = () => {
+        TrackPlayer.addEventListener('remote-previous', () => this.onPrev())
+        TrackPlayer.addEventListener('remote-play', () => TrackPlayer.play())
+        TrackPlayer.addEventListener('remote-pause', () => TrackPlayer.pause())
+        TrackPlayer.addEventListener('remote-stop', () => TrackPlayer.stop())
+        TrackPlayer.addEventListener('remote-next', () => this.onNext())
     }
 
     start = async () => {
@@ -35,19 +59,7 @@ class Player extends React.Component {
         remoteAuthors.map((e)=>allAuthors.push(e))
 
         await TrackPlayer.setupPlayer();
-        TrackPlayer.registerPlaybackService(() => require('../service'));
-        await TrackPlayer.updateOptions({
-            stopWithApp: true,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-                TrackPlayer.CAPABILITY_PLAY,
-                TrackPlayer.CAPABILITY_PAUSE,
-                TrackPlayer.CAPABILITY_STOP,
-                TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-              ]
-        });
-        
+
         await TrackPlayer.add({
             url: urls[this.state.audioId]
         });
@@ -81,6 +93,7 @@ class Player extends React.Component {
         if(this.state.pause == true) {
             this.setState({pause: false})
         }
+        this.setState({pause: false})
     }
 
     onPrev = () => {
@@ -96,6 +109,7 @@ class Player extends React.Component {
         if(this.state.pause == true) {
             this.setState({pause: false})
         }
+        this.setState({pause: false})
     }
 
     render() {
