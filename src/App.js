@@ -28,13 +28,13 @@ export default class App extends React.Component {
         <NativeRouter>
           <Switch>
             <Route exact path='/'>
-              <Main/>
+              <Main />
             </Route>
             <Route path='/Slider'>
-              <Slider/>
+              <Slider />
             </Route>
             <Route path='/Player'>
-              <Player/>
+              <Player />
             </Route>
           </Switch>
           <View style={styles.nav}>
