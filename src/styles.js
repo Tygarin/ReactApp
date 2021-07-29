@@ -75,6 +75,10 @@ const styles = StyleSheet.create({
     },
     authors: {
         fontSize: 30
+    },
+    artwork: {
+        width: 200,
+        height: 200
     }
 })
 

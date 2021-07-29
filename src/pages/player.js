@@ -11,7 +11,8 @@ class Player extends React.Component {
     this.state = {
       pause: false,
       author: '',
-      appState: AppState.currentState
+      appState: AppState.currentState,
+      img: ''
     }
   }
 
@@ -47,17 +48,20 @@ class Player extends React.Component {
         {
           id: 3,
           url: urls[0],
-          title: allAuthors[0]
+          title: allAuthors[0],
+          artwork: require('../img/authors/kadilac.png')
         },
         {
           id: 4,
           url: urls[1],
-          title: allAuthors[1]
+          title: allAuthors[1],
+          artwork: require('../img/authors/slvmrlw.jpg')
         },
         {
           id: 5,
           url: urls[2],
-          title: allAuthors[2]
+          title: allAuthors[2],
+          artwork: require('../img/authors/ok.jpg')
         }
       );
       console.log(songs);
@@ -101,7 +105,8 @@ class Player extends React.Component {
     let trackIndex = await TrackPlayer.getCurrentTrack();
     let trackObject = await TrackPlayer.getTrack(trackIndex);
     this.setState({
-      author: trackObject.title
+      author: trackObject.title,
+      img: trackObject.artwork
     })
   }
 
@@ -130,6 +135,7 @@ class Player extends React.Component {
   render() {
     return (
       <View style={styles.player}>
+        <Image style={styles.artwork} source={this.state.img}></Image>
         <Text style={styles.authors}>{this.state.author}</Text>
         <View style={styles.playerNav}>
           <TouchableOpacity onPress={this.onPrev}>

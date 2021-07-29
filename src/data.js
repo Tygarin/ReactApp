@@ -7,17 +7,20 @@ const songs = [
   {
     title: "Татьяна Буланова",
     id: 0,
-    url: audio1
+    url: audio1,
+    artwork: require('./img/authors/bulanova.jpg')
   },
   {
     title: "Руки вверх",
     id: 1,
-    url: audio2
+    url: audio2,
+    artwork: require('./img/authors/hand.jpg')
   },
   {
     title: "Технология",
     id: 2,
-    url: audio3
+    url: audio3,
+    artwork: require('./img/authors/tech.jpg')
   }
 ];
 
