@@ -2,7 +2,7 @@ import { initialState } from "./initialState"
 import { actions } from "./actions";
 
 export const reducer = (state = initialState, action = actions) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'TAKEIMG_SUCCESS':
             return {
                 ...state,

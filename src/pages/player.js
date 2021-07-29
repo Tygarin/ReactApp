@@ -3,6 +3,7 @@ import { AppState, Button, Image, Text, TouchableOpacity, View } from 'react-nat
 import styles from '../styles';
 import TrackPlayer, { TrackPlayerEvents } from 'react-native-track-player';
 import songs from '../data'
+import { EventRegister } from 'react-native-event-listeners'
 
 class Player extends React.Component {
   constructor(props) {
@@ -69,6 +70,12 @@ class Player extends React.Component {
     setInterval(() => {
       this.refresh()
     }, 1000)
+
+    this.listener = EventRegister.addEventListener('onPause', (pause) => {
+      this.setState({
+        pause,
+      })
+    })
   }
 
   componentWillUnmount() {

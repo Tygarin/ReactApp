@@ -4,8 +4,8 @@ import dog3 from '../img/dog3.jpg';
 
 export const initialState = {
     local: [
-        dog1, 
-        dog2, 
+        dog1,
+        dog2,
         dog3
     ],
     remote: []

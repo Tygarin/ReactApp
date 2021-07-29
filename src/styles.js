@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    nav : {
+    nav: {
         position: 'absolute',
         bottom: 0,
         flex: 1,
@@ -12,19 +12,19 @@ const styles = StyleSheet.create({
     btn: {
         padding: 15
     },
-    main : {
+    main: {
         height: '100%'
     },
-    maincontent : {
+    maincontent: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    mainLink : {
+    mainLink: {
         backgroundColor: '#000',
         padding: 5
     },
-    maintext2 : {
+    maintext2: {
         color: '#fff'
     },
     page: {
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    sliderWrapper : {
+    sliderWrapper: {
         flex: 1,
         width: '100%',
         alignItems: 'center',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     authors: {
         fontSize: 30
     }
-})  
+})
 
 export default styles
 
